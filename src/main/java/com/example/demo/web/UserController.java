@@ -37,8 +37,11 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> list() {
-        return userService.listUsers();
+    public ResponseEntity<List<User>> list() {
+        var listUsers = userService.listUsers();
+        return listUsers.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+                ResponseEntity.status(HttpStatus.OK).body(listUsers);
     }
 
     @DeleteMapping("/{id}")

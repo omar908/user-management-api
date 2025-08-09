@@ -43,3 +43,37 @@ tasks.asciidoctor {
 	inputs.dir(project.extra["snippetsDir"]!!)
 	dependsOn(tasks.test)
 }
+// Define a dedicated integrationTest source set and task
+sourceSets {
+    val main by getting
+    val test by getting
+    create("integrationTest") {
+        java.srcDir("src/integrationTest/java")
+        resources.srcDir("src/integrationTest/resources")
+        compileClasspath += main.output + test.compileClasspath
+        runtimeClasspath += output + compileClasspath + test.runtimeClasspath
+    }
+}
+
+val integrationTestSourceSet = the<SourceSetContainer>().named("integrationTest").get()
+
+configurations {
+    // Make integrationTest configurations extend from test ones so test libs are available
+    getByName("integrationTestImplementation") {
+        extendsFrom(getByName("testImplementation"))
+    }
+    getByName("integrationTestRuntimeOnly") {
+        extendsFrom(getByName("testRuntimeOnly"))
+    }
+}
+
+tasks.register<Test>("integrationTest") {
+    description = "Runs integration tests."
+    group = "verification"
+    testClassesDirs = integrationTestSourceSet.output.classesDirs
+    classpath = integrationTestSourceSet.runtimeClasspath
+    useJUnitPlatform()
+    shouldRunAfter("test")
+}
+
+tasks.named("check") { dependsOn("integrationTest") }
