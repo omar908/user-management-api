@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @EnableConfigurationProperties(DemoProperties.class)
 @WebMvcTest(controllers = UserController.class)
-class DemoApplicationIntegrationTests {
+class DemoApplicationUserControllerSliceTests {
 	@Autowired
 	MockMvc mockMvc;
 
