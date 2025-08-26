@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,14 +41,14 @@ public class UserController {
     public ResponseEntity<List<User>> list() {
         var listUsers = userService.listUsers();
         return listUsers.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+                ResponseEntity.status(HttpStatus.OK).body(Collections.emptyList()) :
                 ResponseEntity.status(HttpStatus.OK).body(listUsers);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        boolean deleted = userService.deleteUser(id);
-        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

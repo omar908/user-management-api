@@ -9,7 +9,7 @@ import java.util.Map;
 @RestController
 public class HealthController {
 
-    @GetMapping("/healthz")
+    @GetMapping("/health")
     public Map<String, Object> health() {
         Map<String, Object> body = new HashMap<>();
         body.put("status", "ok");
