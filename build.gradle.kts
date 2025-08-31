@@ -2,10 +2,9 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.5.4"
 	id("io.spring.dependency-management") version "1.1.7"
-	id("org.asciidoctor.jvm.convert") version "3.3.2"
 }
 
-group = "com.example"
+group = "com.omar"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -26,6 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2")
     implementation("net.datafaker:datafaker:2.4.4")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.11")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -41,10 +41,6 @@ tasks.test {
 	outputs.dir(project.extra["snippetsDir"]!!)
 }
 
-tasks.asciidoctor {
-	inputs.dir(project.extra["snippetsDir"]!!)
-	dependsOn(tasks.test)
-}
 // Define a dedicated integrationTest source set and task
 sourceSets {
     val main by getting
