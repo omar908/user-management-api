@@ -1,4 +1,4 @@
-package com.example.demo.web;
+package com.omar.user_management_api.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

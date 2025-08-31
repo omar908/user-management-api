@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.omar.user_management_api.service;
 
-import com.example.demo.service.UserServiceImpl.UserCreatedEvent;
+import com.omar.user_management_api.service.UserServiceImpl.UserCreatedEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -12,7 +12,7 @@ public class UserCreatedListener {
 
     @EventListener
     public void onUserCreated(UserCreatedEvent event) {
-        log.info("User created with id {}", event.getUserId());
+        log.info("User created with id {}", event.userId());
     }
 }
 

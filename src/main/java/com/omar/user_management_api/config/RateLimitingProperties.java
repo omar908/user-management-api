@@ -1,11 +1,11 @@
-package com.example.demo.config;
+package com.omar.user_management_api.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "demo")
-public class DemoProperties {
+@ConfigurationProperties(prefix = "requests")
+public class RateLimitingProperties {
     private RateLimiting rateLimiting = new RateLimiting();
 
     public RateLimiting getRateLimiting() {

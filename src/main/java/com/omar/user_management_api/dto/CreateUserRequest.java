@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.omar.user_management_api.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

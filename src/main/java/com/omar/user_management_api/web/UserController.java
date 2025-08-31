@@ -1,8 +1,8 @@
-package com.example.demo.web;
+package com.omar.user_management_api.web;
 
-import com.example.demo.domain.User;
-import com.example.demo.dto.CreateUserRequest;
-import com.example.demo.service.UserService;
+import com.omar.user_management_api.domain.User;
+import com.omar.user_management_api.dto.CreateUserRequest;
+import com.omar.user_management_api.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

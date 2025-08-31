@@ -1,4 +1,4 @@
-package com.example.demo.domain;
+package com.omar.user_management_api.domain;
 
 import java.time.Instant;
 import java.util.Objects;

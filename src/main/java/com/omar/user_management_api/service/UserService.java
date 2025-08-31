@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.omar.user_management_api.service;
 
-import com.example.demo.domain.User;
+import com.omar.user_management_api.domain.User;
 
 import java.util.List;
 import java.util.Optional;

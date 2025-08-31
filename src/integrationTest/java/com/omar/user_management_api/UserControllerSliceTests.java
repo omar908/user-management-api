@@ -1,9 +1,9 @@
-package com.example.demo;
+package com.omar.user_management_api;
 
-import com.example.demo.config.DemoProperties;
-import com.example.demo.service.UserService;
-import com.example.demo.web.UserController;
-import com.example.demo.domain.User;
+import com.omar.user_management_api.config.RateLimitingProperties;
+import com.omar.user_management_api.service.UserService;
+import com.omar.user_management_api.web.UserController;
+import com.omar.user_management_api.domain.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +34,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@EnableConfigurationProperties(DemoProperties.class)
+@EnableConfigurationProperties(RateLimitingProperties.class)
 @WebMvcTest(controllers = UserController.class)
 class DemoApplicationUserControllerSliceTests {
 	@Autowired
