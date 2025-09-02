@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  # Local build service (expects a JAR in context)
+  user-management-api:
+    container_name: user-management-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    profiles:
+      - local
+
+  # No-local build service (builds JAR inside container + distroless)
+  user-management-api-no-local:
+    container_name: user-management-api
+    build:
+      context: .
+      dockerfile: Dockerfile.no-local
+    ports:
+      - "8080:8080"
+    profiles:
+      - no-local
