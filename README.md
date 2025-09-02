@@ -33,13 +33,18 @@
 
 ### Docker Container
 - Pre-requisites
-  - Java 21
   - Docker
 - Run the following commands:
-  1. `./gradlew clean build`
-  2. `docker build --tag user-management-api .`
-  3. `docker run --publish 8080:8080 --name user-management-api --detach user-management-api`
-  4. `docker container rm --force user-management-api`
+  1. Creates the jar file within an ephemeral container and outputs a distro-less container with the application jar.
+     - `docker build --tag user-management-api .`
+  2. Runs the distro-less image and exposes ports application to the host machine's port 8080.
+     - `docker run --publish 8080:8080 --name user-management-api --detach user-management-api`
+
+- To remove and clean up, run the following commands:
+  1. Stops and removes running container of `user-management-api`:
+     - `docker container rm --force user-management-api`
+  2. Removes docker image of `user-management-api`:
+     - `docker image rm --force user-management-api`
 
 ### Interacting with Endpoints
 - You can interact with endpoints the built-in swagger ui at the following link: http://localhost:8080/swagger-ui/index.html
