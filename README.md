@@ -28,24 +28,40 @@
 - Pre-requisites
   - Java 21
 - Run the following commands:
-  1. `./gradlew clean build`
-  2. `./gradlew bootRun`
+  1. Run Tests and Build Jar file. (Optional)
+     - `./gradlew clean build`
+  2. Run the SpringBoot application.
+     - `./gradlew bootRun`
 
 ### Docker Container
+#### Missing Local Setup (No Jar Locally)
 - Pre-requisites
   - Docker
 - Run the following commands:
-  1. Creates the jar file within an ephemeral container and outputs a distro-less container with the application jar.
-     - `docker build --tag user-management-api .`
+  1. Creates the Jar file within an ephemeral container and outputs a distro-less container with the application Jar.
+     - `docker build --tag user-management-api --file Dockerfile.no-local .`
   2. Runs the distro-less image and exposes ports application to the host machine's port 8080.
      - `docker run --publish 8080:8080 --name user-management-api --detach user-management-api`
 
+#### With Local Setup (Uses Local Jar)
+- Pre-requisites
+    - Docker
+    - Java 21
+- Run the following commands:
+  1. Build your Jar locally
+     - `./gradlew clean assemble`
+  2. Copies the jar file and outputs a distro-less container with the application Jar.
+     - `docker build --tag user-management-api .`
+  3. Runs the distro-less image and exposes ports application to the host machine's port 8080.
+     - `docker run --publish 8080:8080 --name user-management-api --detach user-management-api`
+
+#### Cleaning local Container and Images
 - To remove and clean up, run the following commands:
   1. Stops and removes running container of `user-management-api`:
-     - `docker container rm --force user-management-api`
+      - `docker container rm --force user-management-api`
   2. Removes docker image of `user-management-api`:
-     - `docker image rm --force user-management-api`
+      - `docker image rm --force user-management-api`
 
-### Interacting with Endpoints
+## How to Interact with Endpoints of application
 - You can interact with endpoints the built-in swagger ui at the following link: http://localhost:8080/swagger-ui/index.html
 - Alternatively, you can use the terminal or your preferred API Tool.
