@@ -22,14 +22,24 @@
 - **In-memory repository** (pure Java collections, resets on restart)
 - JUnit 5, Mockito, Data Faker, & Spring Test
 
-## How to Run
-### Pre-requisites
-  - Java 21
+## How to Run the application
 
-### Running the application
+### SpringBoot approach
+- Pre-requisites
+  - Java 21
 - Run the following commands:
-  - `./gradlew clean build`
-  - `./gradlew bootRun`
+  1. `./gradlew clean build`
+  2. `./gradlew bootRun`
+
+### Docker Container
+- Pre-requisites
+  - Java 21
+  - Docker
+- Run the following commands:
+  1. `./gradlew clean build`
+  2. `docker build --tag user-management-api .`
+  3. `docker run --publish 8080:8080 --name user-management-api --detach user-management-api`
+  4. `docker container rm --force user-management-api`
 
 ### Interacting with Endpoints
 - You can interact with endpoints the built-in swagger ui at the following link: http://localhost:8080/swagger-ui/index.html
