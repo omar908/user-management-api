@@ -25,7 +25,10 @@ public class UserInputNormalizerTest {
                 Arguments.of("Name  ", "Name"),
                 Arguments.of("  NAME", "NAME"),
                 Arguments.of("  NaMe  ", "NaMe"),
-                Arguments.of(null, "")
+                Arguments.of(null, ""),
+                Arguments.of("  FiRstName LaStName  ", "FiRstName LaStName"),
+                Arguments.of("  FIRSTNAME LASTNAME", "FIRSTNAME LASTNAME"),
+                Arguments.of("Firstname Lastname  ", "Firstname Lastname")
         );
     }
 
