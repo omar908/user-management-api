@@ -55,7 +55,7 @@ class DemoApplicationUserControllerSliceTests {
 			Instant.now()
 	);
 
-	String createUserJsonOkBodyRequest = "{" +
+	String createOrUpdateUserJsonOkBodyRequest = "{" +
 											"\"name\":\"firstname lastname\"," +
 											"\"email\":\"email@example.com\"" +
 										"}";
@@ -121,7 +121,7 @@ class DemoApplicationUserControllerSliceTests {
 		when(userService.createUser(anyString(), anyString())).thenReturn(userSupplier.get());
 		var response = mockMvc.perform(post("/api/users")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(createUserJsonOkBodyRequest)
+				.content(createOrUpdateUserJsonOkBodyRequest)
 		);
 		response.andExpect(status().isCreated());
 	}
@@ -151,6 +151,36 @@ class DemoApplicationUserControllerSliceTests {
 		when(userService.deleteUser(any())).thenReturn(false);
 		var response = mockMvc.perform(delete("/api/users/"+randomUUID));
 		response.andExpect(status().isNoContent());
+	}
+
+	@Test
+	public void userControllerUpdateUserTestSuccess() throws Exception {
+		var randomUUID = UUID.randomUUID();
+		when(userService.updateUser(any(), anyString(), anyString())).thenReturn(userSupplier.get());
+		var response = mockMvc.perform(put("/api/users/"+randomUUID)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(createOrUpdateUserJsonOkBodyRequest)
+		);
+		response.andExpect(status().isOk());
+	}
+
+	@Test
+	public void userControllerUpdateUserMissingBody() throws Exception {
+		var randomUUID = UUID.randomUUID();
+		when(userService.updateUser(any(), anyString(), anyString())).thenReturn(userSupplier.get());
+		var response = mockMvc.perform(put("/api/users/"+randomUUID));
+		response.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	public void userControllerUpdateUserNotFound() throws Exception {
+		var randomUUID = UUID.randomUUID();
+		when(userService.updateUser(any(), anyString(), anyString())).thenThrow(new IllegalStateException("User not found"));
+		var response = mockMvc.perform(put("/api/users/"+randomUUID)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(createOrUpdateUserJsonOkBodyRequest)
+		);
+		response.andExpect(status().isConflict());
 	}
 
 }

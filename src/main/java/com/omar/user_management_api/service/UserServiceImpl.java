@@ -29,6 +29,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User updateUser(UUID id, String name, String email){
+        var normalizedName = UserInputNormalizer.normalizeName.apply(name);
+        var normalizedEmail = UserInputNormalizer.normalizeEmail.apply(email);
+        User updatedUser;
+
+        var storedUser = userRepository.findById(id);
+        if (storedUser.isPresent()){
+            updatedUser = new User(id, normalizedName, normalizedEmail, storedUser.get().getCreatedAt());
+            userRepository.updateExistingUser(id, updatedUser);
+            if (!storedUser.get().getEmail().equals(updatedUser.getEmail())) {
+                userRepository.removeEmailMapping(storedUser.get().getEmail());
+                userRepository.addEmailMapping(updatedUser.getEmail(), updatedUser.getId());
+            }
+        } else {
+            throw new IllegalStateException("User does not exist.");
+        }
+        return updatedUser;
+    }
+
+    @Override
     public Optional<User> getUser(UUID id) {
         return userRepository.findById(id);
     }

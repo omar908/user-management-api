@@ -8,11 +8,13 @@ import java.util.UUID;
 
 public interface UserRepository {
     User save(User user);
+    void updateExistingUser(UUID id, User user);
+    void removeEmailMapping(String email);
+    void addEmailMapping(String email, UUID id);
     Optional<User> findById(UUID id);
     Optional<User> findByEmail(String email);
     List<User> findAll();
     boolean deleteById(UUID id);
-    long count();
 }
 
 

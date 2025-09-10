@@ -24,6 +24,21 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
+    public void updateExistingUser(UUID id, User updatedUser){
+        usersById.put(id, updatedUser);
+    }
+
+    @Override
+    public void removeEmailMapping(String email){
+        idByEmail.remove(email);
+    }
+
+    @Override
+    public void addEmailMapping(String email, UUID id){
+        idByEmail.put(email, id);
+    }
+
+    @Override
     public Optional<User> findById(UUID id) {
         return Optional.ofNullable(usersById.get(id));
     }
@@ -48,11 +63,6 @@ public class InMemoryUserRepository implements UserRepository {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public long count() {
-        return usersById.size();
     }
 }
 

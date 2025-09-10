@@ -2,6 +2,7 @@ package com.omar.user_management_api.web;
 
 import com.omar.user_management_api.domain.User;
 import com.omar.user_management_api.dto.CreateUserRequest;
+import com.omar.user_management_api.dto.UpdateUserRequest;
 import com.omar.user_management_api.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,12 @@ public class UserController {
         return listUsers.isEmpty() ?
                 ResponseEntity.status(HttpStatus.OK).body(Collections.emptyList()) :
                 ResponseEntity.status(HttpStatus.OK).body(listUsers);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@Valid @RequestBody UpdateUserRequest request, UUID id) {
+        User updatedUser = userService.updateUser(id, request.getName(), request.getEmail());
+        return ResponseEntity.ok().body(updatedUser);
     }
 
     @DeleteMapping("/{id}")
